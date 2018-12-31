@@ -4,13 +4,14 @@
  * and open the template in the editor.
  */
 package comisiondeempresas;
+import java.util.LinkedList;
 import java.util.Scanner;
 /**
  *
  * @author Joshua
  */
 public class Datos {
-    Empresas e[];
+    LinkedList<Empresas> e = new LinkedList();
     public String nome;
     public String nomr;
     public double in;
@@ -18,12 +19,14 @@ public class Datos {
     public double dif;
     public double imp;
     
-    
-    public Datos(){
-        e=new Empresas[10];
-        for(int i=0;i<10;i++){
-            e[i]=new Empresas();
+    public double generarImpuestosEmpresas(){
+        double acumulador = 0;
+        
+        for(int i=0; i<e.size(); i++){
+            acumulador = acumulador += e.get(i).getimp();
         }
+        
+        return acumulador;
     }
     public double generateImp(double dif){
         double finalImp = 0;
@@ -59,8 +62,14 @@ public class Datos {
             double impuesto = generateImp(diferencia);
             
             impt=(impuesto + impuesto);
+            empresa.setimp(impt);
+            this.e.addLast(empresa);            
             
             System.out.println("El impuesto total es: "+impt);
+            
+            double acumulado = generarImpuestosEmpresas();
+            
+            System.out.println("El impuesto acumulado total es: "+acumulado);            
             System.out.println("/n Ingrese 1 si desea agregar una nueva empresa...");
             
             if(!k.next().equals("1")){
